@@ -74,6 +74,7 @@ class TestDeck(unittest.TestCase):
 
     def tearDown(self):
         self.deck
+
 class TestpopCard(unittest.TestCase):
     def setUp(self):
         self.deck = Deck()
@@ -102,11 +103,35 @@ class TestDeckSuffle(unittest.TestCase):
         self.cards
         self.s_card
 
-# class TestDeckPartTwo(unittest.TestCase):
-#     def setUp(self):
-#         self.deck = Deck()
+class TestDeckReplace(unittest.TestCase):
+    def setUp(self):
+        self.deck = Deck()
+        self.card_strs = []
+        for c in self.deck.cards:
+            self.card_strs.append(c.__str__())
+        if self.deck.cards.__str__() not in self.card_strs:
+            self.deck.cards.append(self.deck.cards)
+
+    def test_replace(self):
+        self.assertIn('2 of Diamonds', self.card_strs, "checks to make sure the replace card doesn't duplicate")
+
+    def tearDown(self):
+        self.deck
+        self.card_strs
+
+class TestDeckPartTwo(unittest.TestCase):
+    def setUp(self):
+        self.deck = Deck()
+        self.deck.deal_hand(26)
+
+    def test_deal_hand(self):
+        self.assertEqual(len(self.deck.cards), len(range(26)), "checks to make sure that when dealing 26 cards, that there are 26 cards remaining in the deck")
+
+    def tearDown(self):
+        self.deck
+
 # class TestPlayWar(unittest.TestCase):
-#
+
 # class TestSong(unittest.TestCase):
 
 if __name__ == '__main__':
