@@ -95,7 +95,7 @@ class TestDeckSuffle(unittest.TestCase):
         self.s_card = self.deck.cards
 
     def test_shuffle(self):
-        self.assertListNotEqual(self.cards, self.s_card, 'checks to see if the shuffle function returns a shuffled list of the cards (i.e. not equal lists)')
+        self.assertNotEqual(self.cards, self.s_card, 'checks to see if the shuffle function returns a shuffled list of the cards (i.e. not equal lists)')
 
     def tearDown(self):
         self.deck
