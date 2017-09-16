@@ -9,38 +9,62 @@
 import unittest
 from SI507F17_project1_cards import *
 
+
 class TestCards(unittest.TestCase):
+
     def setUp(self):
         self.card = Card()
 
-    # def test_class_variable(self):
-    #     self.assertIsInstance(type(suit_names), Card, 'checks to see if suit_names is in the Card class')
-    #     self.assertIsInstance(self.card.rank_levels, Card, 'checks to see if rank_levels is in the Card class')
-    #     self.assertIsInstance(self.card.faces, Card, 'checks to see if faces is in the Card class')
-
     def test_suit_names(self):
-        self.assertEqual(self.card.suit_names,["Diamonds","Clubs","Hearts","Spades"], 'should be a list containing suits')
+        self.assertEqual(self.card.suit_names, [
+                        "Diamonds", "Clubs",
+                        "Hearts", "Spades"],
+                        'should be a list containing suits')
 
     def test_rank(self):
-        self.assertEqual(self.card.rank_levels,[1,2,3,4,5,6,7,8,9,10,11,12,13], 'should be a list of card ranks from 0-13')
+        self.assertEqual(self.card.rank_levels, [
+                        1, 2, 3, 4, 5, 6, 7,
+                        8, 9, 10, 11, 12, 13
+                        ],
+                        """should be a list of card
+                        ranks from 0-13""")
 
     def test_faces(self):
-        self.assertEqual(self.card.faces, {1:"Ace",11:"Jack",12:"Queen",13:"King"}, 'should be a dictionary of the face card values')
+        self.assertEqual(self.card.faces, {
+                        1: "Ace",
+                        11: "Jack",
+                        12: "Queen",
+                        13: "King"
+                        },
+                        'should be a dictionary of the face card values')
 
-# This test below could be the one that needs to fail.  retuns 'diamonds' instead of 0, but I could jsut not be itereating it through correctly
+# This test below could be the one that needs to fail.
+# retuns 'diamonds' instead of 0, but I could jsut
+# not be itereating it through correctly
+
     def test_default_card_suit(self):
-        self.assertEqual(self.card.suit, self.card.suit_names[0], 'default suit should be 0 or "Diamonds"')
+        self.assertEqual(
+            self.card.suit,
+            self.card.suit_names[0],
+            """default suit should be 0 or "Diamonds""")
 
     def test_default_card_rank(self):
         self.assertEqual(self.card.rank, 2, 'default rank should be 2')
 
     def test_card_string(self):
-        self.card = Card(0,13)
+        self.card = Card(0, 13)
         self.string = str(self.card)
-        self.assertEqual(self.string, "King of Diamonds", 'check to see if the __str__ variable prints correctly')
+        self.assertEqual(
+            self.string,
+            "King of Diamonds",
+            'check to see if the __str__ variable prints correctly')
 
     def test_card_suit_instance(self):
-        self.assertIn(self.card.suit, self.card.suit_names, 'check to make sure that the suit of the card is in the suit_names variable')
+        self.assertIn(
+            self.card.suit,
+            self.card.suit_names,
+            """check to make sure that the suit of the card
+            is in the suit_names variable""")
 
     def test_card_rank_instance(self):
         self.rank = self.card.rank
@@ -48,34 +72,58 @@ class TestCards(unittest.TestCase):
             self.rank = self.faces[rank]
         else:
             self.rank = self.rank
-        self.assertEqual(self.card.rank, self.rank, 'check to make sure that the rank printed is either the rank level or the face')
+        self.assertEqual(
+            self.card.rank, self.rank,
+            """check to make sure that
+            the rank printed is either
+            the rank level or the face""")
 
     def test_card_rank_num_instance(self):
-        self.assertIn(self.card.rank_num, self.card.rank_levels, 'check to make sure that the rank_num is in the rank_levels list')
+        self.assertIn(
+            self.card.rank_num,
+            self.card.rank_levels,
+            """check to make sure that the rank_num
+            is in the rank_levels list""")
 
     def tearDown(self):
         self.card
 
+
 class TestDeck(unittest.TestCase):
+
     def setUp(self):
         self.deck = Deck()
 
     def test_deck_of_cards(self):
-        self.assertEqual(len(self.deck.cards), 52, 'checks to make sure that the number of cards in the deck is 52')
+        self.assertEqual(
+            len(self.deck.cards),
+            52,
+            """checks to make sure that the
+            number of cards in the deck is 52""")
 
     def test_deck_instances(self):
         for card_object in self.deck.cards:
-            self.assertIsInstance(card_object, Card, 'check to make sure that the cards created in the Deck class are isntances of the Card class')
+            self.assertIsInstance(
+                card_object, Card,
+                """check to make sure that the cards
+                created in the Deck class are instances
+                of the Card class""")
 
     def test_deck_string(self):
         self.d_string = str(self.deck)
         self.d_list = self.d_string.split('\n')
-        self.assertEqual(len(self.d_list), 52, "checks to make sure the Deck class's string prints out 52 lines")
+        self.assertEqual(
+            len(self.d_list),
+            52,
+            """checks to make sure the Deck
+            class's string prints out 52 lines""")
 
     def tearDown(self):
         self.deck
 
+
 class TestpopCard(unittest.TestCase):
+
     def setUp(self):
         self.deck = Deck()
         for x in range(52):
@@ -83,12 +131,18 @@ class TestpopCard(unittest.TestCase):
         self.card = self.deck.cards
 
     def test_pop_card(self):
-        self.assertEqual(self.card, [], 'checks to see if invoking the pop_card function 52 times leaves the deck of cards list empty')
+        self.assertEqual(
+            self.card,
+            [],
+            """checks to see if invoking the pop_card function 52 times
+            leaves the deck of cards list empty""")
 
     def tearDown(self):
         self.deck
 
+
 class TestDeckSuffle(unittest.TestCase):
+
     def setUp(self):
         self.deck = Deck()
         self.cards = self.deck.cards
@@ -96,14 +150,21 @@ class TestDeckSuffle(unittest.TestCase):
         self.s_card = self.deck.cards
 
     def test_shuffle(self):
-        self.assertNotEqual(self.cards, self.s_card, 'checks to see if the shuffle function returns a shuffled list of the cards (i.e. not equal lists)')
+        self.assertNotEqual(
+            self.cards,
+            self.s_card,
+            """checks to see if the shuffle function
+            returns a shuffled list of the cards
+            (i.e. not equal lists)""")
 
     def tearDown(self):
         self.deck
         self.cards
         self.s_card
 
+
 class TestDeckReplace(unittest.TestCase):
+
     def setUp(self):
         self.deck = Deck()
         self.card_strs = []
@@ -113,26 +174,66 @@ class TestDeckReplace(unittest.TestCase):
             self.deck.cards.append(self.deck.cards)
 
     def test_replace(self):
-        self.assertIn('2 of Diamonds', self.card_strs, "checks to make sure the replace card doesn't duplicate")
+        self.assertIn(
+            '2 of Diamonds', self.card_strs,
+            """checks to make sure the replace
+            card doesn't duplicate""")
 
     def tearDown(self):
         self.deck
         self.card_strs
 
+
 class TestDeckPartTwo(unittest.TestCase):
+
     def setUp(self):
         self.deck = Deck()
         self.deck.deal_hand(26)
 
     def test_deal_hand(self):
-        self.assertEqual(len(self.deck.cards), len(range(26)), "checks to make sure that when dealing 26 cards, that there are 26 cards remaining in the deck")
+        self.assertEqual(
+            len(self.deck.cards), len(range(26)),
+            """checks to make sure that when dealing
+            26 cards, that there are 26 cards
+            remaining in the deck""")
 
     def tearDown(self):
         self.deck
 
-# class TestPlayWar(unittest.TestCase):
 
-# class TestSong(unittest.TestCase):
+class TestPlayWar(unittest.TestCase):
+
+    def setUp(self):
+        self.game = play_war_game()
+
+    def test_playing_game(self):
+        self.assertEqual(
+            type(self.game), type(()),
+            """checks to make sure that the
+            play_war_game returns a tuple""")
+
+    def tearDown(self):
+        self.game
+
+
+class TestSong(unittest.TestCase):
+
+    def setUp(self):
+        self.song = show_song("Winner")
+        self.d_song = show_song()
+
+    def test_song_search_input(self):
+        self.assertEqual(
+            self.song,
+            self.d_song,
+            """checks to make sure that inputing a value in
+            show_song() will search or not. If the input
+            'Winner' doesn't return the same value as the default,
+            this doesn't work correctly""")
+
+    def tearDown(self):
+        self.song
+        self.d_song
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
