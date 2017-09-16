@@ -56,6 +56,24 @@ class TestCards(unittest.TestCase):
     def tearDown(self):
         self.card
 
+class TestDeck(unittest.TestCase):
+    def setUp(self):
+        self.deck = Deck()
+
+    def test_deck_of_cards(self):
+        self.assertEqual(len(self.deck.cards), 52, 'checks to make sure that the number of cards in the deck is 52')
+
+    def test_deck_instances(self):
+        for card_object in self.deck.cards:
+            self.assertIsInstance(card_object, Card, 'check to make sure that the cards created in the Deck class are isntances of the Card class')
+
+    def test_deck_string(self):
+        self.d_string = str(self.deck)
+        self.d_list = self.d_string.split('\n')
+        self.assertEqual(len(self.d_list), 52, "checks to make sure the Deck class's string prints out 52 lines")
+
+    def tearDown(self):
+        self.deck
 
 # class TestDeckPartTwo(unittest.TestCase):
 #     def setUp(self):
