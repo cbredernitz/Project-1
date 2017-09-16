@@ -74,6 +74,33 @@ class TestDeck(unittest.TestCase):
 
     def tearDown(self):
         self.deck
+class TestpopCard(unittest.TestCase):
+    def setUp(self):
+        self.deck = Deck()
+        for x in range(52):
+            self.deck.pop_card()
+        self.card = self.deck.cards
+
+    def test_pop_card(self):
+        self.assertEqual(self.card, [], 'checks to see if invoking the pop_card function 52 times leaves the deck of cards list empty')
+
+    def tearDown(self):
+        self.deck
+
+class TestDeckSuffle(unittest.TestCase):
+    def setUp(self):
+        self.deck = Deck()
+        self.cards = self.deck.cards
+        self.deck.shuffle()
+        self.s_card = self.deck.cards
+
+    def test_shuffle(self):
+        self.assertListNotEqual(self.cards, self.s_card, 'checks to see if the shuffle function returns a shuffled list of the cards (i.e. not equal lists)')
+
+    def tearDown(self):
+        self.deck
+        self.cards
+        self.s_card
 
 # class TestDeckPartTwo(unittest.TestCase):
 #     def setUp(self):
